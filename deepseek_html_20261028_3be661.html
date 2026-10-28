@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>МРОО «Центр развития образования»</title>
+<style>
+/* ================= БАЗА ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg-deep: #0a0620; --bg-mid: #150a3a; --violet: #7b3ff2; --violet-light: #9d6bff;
+  --blue: #3a6bff; --blue-light: #6f9dff; --text: #ece7ff; --text-dim: #b9aee0;
+  --danger: #ff4d6d; --success: #00d2ff;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Segoe UI", "Inter", sans-serif; background: linear-gradient(160deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+  color: var(--text); min-height: 100vh; overflow-x: hidden; position: relative;
+}
+.bg-glow { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.45; z-index: 0; animation: float 14s ease-in-out infinite; pointer-events: none; }
+.glow-1 { width: 500px; height: 500px; background: var(--violet); top: -150px; left: -100px; }
+.glow-2 { width: 450px; height: 450px; background: var(--blue); bottom: -120px; right: -80px; animation-delay: -5s; }
+.glow-3 { width: 350px; height: 350px; background: #b04dff; top: 40%; left: 55%; animation-delay: -9s; opacity: 0.3; }
+@keyframes float { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(40px,-30px) scale(1.1); } }
+
+.header { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 18px 6vw; backdrop-filter: blur(14px); background: rgba(10, 6, 32, 0.65); border-bottom: 1px solid rgba(157, 107, 255, 0.15); }
+.logo { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.logo-mark { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg, var(--violet), var(--blue)); font-weight: 800; font-size: 14px; box-shadow: 0 0 20px rgba(123, 63, 242, 0.6); flex-shrink: 0; }
+.logo-text { font-weight: 600; font-size: 15px; color: var(--text-dim); white-space: nowrap; }
+
+.nav { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.nav a { color: var(--text-dim); text-decoration: none; font-size: 15px; padding: 10px 16px; border-radius: 12px; transition: all 0.3s; cursor: pointer; }
+.nav a:hover { color: #fff; background: rgba(123, 63, 242, 0.2); }
+.nav a.active { color: #fff; background: linear-gradient(135deg, var(--violet), var(--blue)); box-shadow: 0 6px 20px rgba(123, 63, 242, 0.5); }
+
+.auth-area { display: flex; align-items: center; gap: 10px; margin-left: 10px; }
+.login-btn { background: transparent; border: 2px solid var(--violet-light); color: #fff; padding: 10px 24px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+.login-btn:hover { background: var(--violet-light); box-shadow: 0 0 15px rgba(157, 107, 255, 0.6); }
+.user-badge { display: none; align-items: center; gap: 10px; padding: 8px 16px; background: rgba(0, 210, 255, 0.1); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 12px; font-size: 0.9rem; color: var(--success); font-weight: 600; }
+.user-badge.active { display: flex; }
+.logout-btn { background: transparent; border: none; color: var(--danger); cursor: pointer; font-weight: 700; font-size: 0.85rem; text-decoration: underline; }
+.dev-controls { display: none; gap: 10px; }
+.dev-controls.active { display: flex; }
+.btn-freeze { background: var(--danger); color: #fff; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+.btn-unfreeze { background: var(--success); color: var(--bg-deep); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+
+.page { display: none; position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 60px 24px 100px; animation: fadeIn 0.5s ease both; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.tech-works { display: none; text-align: center; margin: 60px auto; background: rgba(30, 15, 70, 0.7); border: 2px solid var(--danger); padding: 60px 40px; border-radius: 24px; max-width: 700px; box-shadow: 0 0 50px rgba(255, 77, 109, 0.2); }
+body.frozen .tech-works { display: block; }
+body.frozen .hero-title, body.frozen .hero-subtitle, body.frozen .about-card, body.frozen .cta-wrap { display: none; }
+.tech-works h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--danger); margin-bottom: 20px; animation: pulseText 2s infinite; }
+.tech-works p { color: var(--text-dim); font-size: 1.2rem; line-height: 1.6; }
+@keyframes pulseText { 0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(255, 77, 109, 0.5); } 50% { opacity: 0.7; text-shadow: 0 0 30px rgba(255, 77, 109, 1); } }
+
+.hero-title { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; text-align: center; }
+.hero-title .line { display: inline-block; background: linear-gradient(90deg, var(--violet-light), var(--blue-light), var(--violet-light)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite, slideUp 1s ease both; }
+@keyframes shine { to { background-position: 200% center; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+.hero-subtitle { font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--text-dim); max-width: 650px; margin: 0 auto 50px; line-height: 1.6; text-align: center; animation: slideUp 1s ease 0.3s both; }
+.hero-subtitle strong { color: var(--blue-light); }
+.about-card { position: relative; text-align: left; background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 24px; padding: 40px; backdrop-filter: blur(14px); box-shadow: 0 20px 60px rgba(0,0,0,0.45); animation: slideUp 1s ease 0.6s both; overflow: hidden; }
+.about-card::before { content: ""; position: absolute; top: 0; left: 0; height: 3px; width: 100%; background: linear-gradient(90deg, transparent, var(--violet-light), var(--blue-light), transparent); animation: sweep 3s linear infinite; }
+@keyframes sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+.about-heading { font-size: 1.5rem; margin-bottom: 20px; color: #fff; }
+.about-text { color: var(--text-dim); line-height: 1.7; margin-bottom: 16px; font-size: 1.02rem; }
+.reveal { display: inline-block; color: var(--violet-light); font-weight: 600; animation: glowPulse 3s ease-in-out infinite; }
+@keyframes glowPulse { 0%,100% { text-shadow: 0 0 6px rgba(157,107,255,0.4); } 50% { text-shadow: 0 0 18px rgba(157,107,255,0.9); } }
+.features { list-style: none; display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
+.feature { display: flex; align-items: center; gap: 8px; background: rgba(123, 63, 242, 0.15); border: 1px solid rgba(157, 107, 255, 0.3); padding: 10px 16px; border-radius: 999px; font-size: 0.92rem; transition: transform 0.3s, box-shadow 0.3s; }
+.feature:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(123,63,242,0.4); }
+.cta-button { display: inline-block; margin: 44px auto 0; padding: 16px 40px; border-radius: 999px; font-weight: 600; font-size: 1rem; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--violet), var(--blue)); box-shadow: 0 10px 30px rgba(123, 63, 242, 0.5); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; border: none; font-family: inherit; }
+.cta-button:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 40px rgba(123, 63, 242, 0.75); }
+.cta-wrap { text-align: center; }
+
+.section-title { text-align: center; font-size: clamp(1.8rem, 4.5vw, 2.8rem); margin-bottom: 20px; background: linear-gradient(90deg, var(--violet-light), var(--blue-light)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.section-sub { text-align: center; color: var(--text-dim); margin-bottom: 50px; font-size: 1.05rem; }
+.systems { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+.system-card { background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 20px; padding: 28px 24px; cursor: pointer; transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
+.system-card:hover { transform: translateY(-8px); border-color: rgba(157, 107, 255, 0.7); box-shadow: 0 20px 50px rgba(123, 63, 242, 0.4); }
+.system-icon { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--violet), var(--blue)); margin-bottom: 18px; }
+.system-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #fff; }
+.system-card p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.5; }
+.badge-danger { display: inline-block; margin-top: 12px; padding: 6px 14px; background: rgba(255, 77, 109, 0.15); border: 1px solid rgba(255, 77, 109, 0.5); color: #ff8095; font-size: 0.8rem; font-weight: 600; border-radius: 999px; animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 0%,100% { box-shadow: 0 0 0 rgba(255,77,109,0); } 50% { box-shadow: 0 0 18px rgba(255,77,109,0.5); } }
+
+.vacancies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 40px; }
+.vacancy-card { display: flex; flex-direction: column; justify-content: space-between; background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 20px; padding: 30px; backdrop-filter: blur(14px); transition: transform 0.35s; }
+.vacancy-card:hover { transform: translateY(-6px); border-color: rgba(157, 107, 255, 0.7); }
+.vacancy-card h3 { font-size: 1.25rem; color: var(--blue-light); margin-bottom: 16px; border-bottom: 1px solid rgba(157,107,255,0.2); padding-bottom: 12px; }
+.vacancy-card p { color: var(--text-dim); line-height: 1.6; margin-bottom: 12px; font-size: 0.95rem; }
+.vacancy-card p strong { color: #fff; display: block; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 4px; }
+.btn-apply { margin-top: 24px; padding: 12px 24px; border-radius: 12px; font-weight: 600; color: #fff; background: transparent; border: 2px solid var(--violet-light); cursor: pointer; align-self: flex-start; transition: all 0.3s; }
+.btn-apply:hover { background: var(--violet-light); color: var(--bg-deep); }
+
+.admin-panel { margin-top: 40px; background: rgba(30, 15, 70, 0.7); border: 1px solid var(--success); border-radius: 20px; padding: 30px; }
+.admin-panel h2 { color: #fff; margin-bottom: 20px; border-bottom: 1px solid rgba(0, 210, 255, 0.3); padding-bottom: 10px; }
+.staff-list { display: grid; gap: 10px; margin-bottom: 30px; }
+.staff-item { display: flex; justify-content: space-between; align-items: flex-start; background: rgba(0, 210, 255, 0.05); padding: 15px 20px; border-radius: 10px; border-left: 3px solid var(--success); }
+.staff-item span { font-weight: bold; color: #fff; display: block; margin-bottom: 4px;}
+.staff-item small { color: var(--text-dim); display: block; font-size: 0.85rem; line-height: 1.4; }
+.staff-form { display: grid; gap: 15px; max-width: 400px; }
+.staff-form input, .staff-form select { padding: 12px; border-radius: 10px; background: rgba(10, 6, 32, 0.6); border: 1px solid rgba(157, 107, 255, 0.3); color: #fff; font-family: inherit; }
+.staff-form button { padding: 14px; border-radius: 10px; border: none; font-weight: bold; background: var(--success); color: var(--bg-deep); cursor: pointer; transition: 0.3s; }
+.staff-form button:hover { box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); }
+#devDegreeGroup { display: none; }
+
+.contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px; }
+.contact-card { background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 24px; padding: 40px 30px; text-align: center; transition: transform 0.35s, border-color 0.35s; }
+.contact-card:hover { transform: translateY(-5px); border-color: rgba(157, 107, 255, 0.7); }
+.contact-icon { width: 70px; height: 70px; margin: 0 auto 20px; border-radius: 20px; display: grid; place-items: center; font-size: 2rem; background: linear-gradient(135deg, var(--violet), var(--blue)); }
+.contact-card h3 { font-size: 1.2rem; color: #fff; margin-bottom: 16px; }
+.contact-card p { color: var(--text-dim); line-height: 1.6; font-size: 1rem; }
+.contact-link { display: inline-block; margin-top: 8px; font-size: 1.1rem; font-weight: 700; color: var(--success); text-decoration: none; word-break: break-all; }
+.contact-link:hover { text-shadow: 0 0 15px rgba(0, 210, 255, 0.8); }
+
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 6, 32, 0.85); backdrop-filter: blur(8px); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+.modal-content { background: linear-gradient(160deg, #150a3a, #0a0620); border-radius: 24px; padding: 40px; transform: scale(0.8) translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 450px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(157, 107, 255, 0.4); }
+.modal-overlay.show .modal-content { transform: scale(1) translateY(0); }
+.modal-content h3 { text-align: center; margin-bottom: 24px; color: #fff; font-size: 1.4rem; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
+.form-control { width: 100%; padding: 12px 16px; background: rgba(10, 6, 32, 0.6); border: 1px solid rgba(157, 107, 255, 0.3); border-radius: 10px; color: #fff; font-family: inherit; }
+.form-control:focus { outline: none; border-color: var(--violet-light); box-shadow: 0 0 15px rgba(157, 107, 255, 0.3); }
+textarea.form-control { resize: vertical; min-height: 80px; }
+.form-actions { display: flex; gap: 12px; margin-top: 26px; }
+.btn-cancel, .btn-submit { flex: 1; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: 0.3s; }
+.btn-cancel { background: transparent; border: 1px solid var(--text-dim); color: var(--text-dim); }
+.btn-cancel:hover { background: rgba(255, 255, 255, 0.05); }
+.btn-submit { background: linear-gradient(135deg, var(--violet), var(--blue)); color: #fff; }
+
+@media (max-width: 900px) {
+  .header { flex-direction: column; gap: 12px; padding: 14px 4vw; }
+  .nav { justify-content: center; }
+  .auth-area { margin-left: 0; width: 100%; justify-content: center; flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-glow glow-1"></div>
+<div class="bg-glow glow-2"></div>
+<div class="bg-glow glow-3"></div>
+
+<header class="header">
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-mark">ЦРО</div>
+    <div class="logo-text">МРОО "Центр развития образования"</div>
+  </div>
+  
+  <nav class="nav" id="mainNav">
+    <a data-page="home" class="active" onclick="showPage('home')">Главная</a>
+    <a data-page="systems" onclick="showPage('systems')">Информационные системы</a>
+    <a data-page="advantages" onclick="showPage('advantages')">Наши преимущества</a>
+    <a data-page="jobs" onclick="showPage('jobs')">Работа у нас</a>
+    <a data-page="contacts" onclick="showPage('contacts')">Контакты</a>
+  </nav>
+
+  <div class="auth-area">
+    <div class="user-badge" id="userBadge">
+      <span id="userName">User</span>
+      <button class="logout-btn" onclick="logout()">Выйти</button>
+    </div>
+    <div class="dev-controls" id="devControls">
+      <button class="btn-freeze" id="freezeBtn" onclick="toggleFreeze()">Заморозить сайт</button>
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="openLoginModal()">Войти</button>
+  </div>
+</header>
+
+<section class="page active" id="page-home">
+  <div class="tech-works">
+    <h1>Идут технические работы</h1>
+    <p>Сайт временно заморожен разработчиком.<br>Пожалуйста, вернитесь чуть позже!</p>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title"><span class="line">Кто мы такие?</span></h1>
+    <p class="hero-subtitle">Мы — <strong>образовательный портал</strong> для школ, который объединяет педагогов, методистов и учеников в единую цифровую среду.</p>
+    <div class="about-card">
+      <h2 class="about-heading">Наша миссия</h2>
+      <p class="about-text"><span class="reveal">МРОО «Центр развития образования»</span> — это региональная общественная организация, созданная для поддержки и развития системы школьного образования.</p>
+      <ul class="features">
+        <li class="feature"><span>📚</span> Методическая поддержка школ</li>
+        <li class="feature"><span>🎓</span> Повышение квалификации педагогов</li>
+        <li class="feature"><span>🌐</span> Единая цифровая образовательная среда</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="page-systems">
+  <h2 class="section-title">Информационные системы</h2>
+  <p class="section-sub">Нажмите на карточку, чтобы открыть подробную информацию</p>
+  <div class="systems" id="systemsGrid"></div>
+</section>
+
+<section class="page" id="page-advantages">
+  <h2 class="section-title">Наши преимущества</h2>
+  <p class="section-sub">Почему стоит работать с нами</p>
+  <div class="advantages">
+    <div class="adv-card"><div class="adv-icon">🛟</div><div class="adv-content"><h3>Поддержка</h3><p>С нашей стороны действует круглосуточная техническая и моральная поддержка.</p></div></div>
+    <div class="adv-card"><div class="adv-icon">🏆</div><div class="adv-content"><h3>Опыт</h3><p>Вы можете получить незабываемый опыт работы и сотрудничества с нами.</p></div></div>
+    <div class="adv-card"><div class="adv-icon">⚖️</div><div class="adv-content"><h3>Соблюдение законодательства</h3><p>В нашей МРОО имеются свои основные регламенты и утверждённые локальные акты.</p></div></div>
+    <div class="adv-card"><div class="adv-icon">📈</div><div class="adv-content"><h3>Карьерный рост</h3><p>В нашем МРОО присутствует множество различных отделений и специалистов.</p></div></div>
+  </div>
+</section>
+
+<section class="page" id="page-jobs">
+  <h2 class="section-title">Работа у нас</h2>
+  <p class="section-sub">Актуальные вакансии в МРОО «Центр развития образования»</p>
+  
+  <div class="admin-panel" id="jobsAdminPanel" style="display: none;">
+    <h2>Управление вакансиями</h2>
+    <div class="staff-form">
+      <input type="text" id="vacTitle" placeholder="Название вакансии">
+      <input type="text" id="vacDesc" placeholder="Суть работы">
+      <input type="text" id="vacCond" placeholder="Условия работы">
+      <button onclick="addVacancy()">Добавить вакансию</button>
+    </div>
+  </div>
+
+  <div class="vacancies-grid" id="vacanciesGrid"></div>
+
+  <div class="admin-panel" id="applicationsAdminPanel" style="display: none; margin-top: 50px; border-color: var(--violet-light);">
+    <h2>Заявки на трудоустройство</h2>
+    <div class="staff-list" id="applicationsList"></div>
+  </div>
+</section>
+
+<section class="page" id="page-contacts">
+  <h2 class="section-title">Контакты</h2>
+  <p class="section-sub">Свяжитесь с нами удобным способом</p>
+  <div class="contact-cards">
+    <div class="contact-card"><div class="contact-icon">📍</div><h3>Наш центральный офис</h3><p>Свердловская область,<br>г. Екатеринбург,<br>ул. Титова, д. 33А</p></div>
+    <div class="contact-card"><div class="contact-icon">📞</div><h3>Единый информационный центр</h3><p>Звоните нам с 9:00 до 18:00</p><a href="tel:+79506573472" class="contact-link">+7 950 657 34 72</a></div>
+    <div class="contact-card"><div class="contact-icon">✉️</div><h3>Единая электронная почта</h3><p>Для подачи официальных обращений</p><a href="mailto:admin-mroo@ro.ru" class="contact-link">admin-mroo@ro.ru</a></div>
+    <div class="contact-card"><div class="contact-icon">🛠️</div><h3>Техническая поддержка</h3><p>По вопросам работы сайта и систем</p><a href="mailto:tehpod-mroo@ro.ru" class="contact-link">tehpod-mroo@ro.ru</a></div>
+  </div>
+</section>
+
+<section class="page" id="page-admin">
+  <h2 class="section-title">Панель управления</h2>
+  <p class="section-sub">Управление сотрудниками (Доступно только Разработчикам)</p>
+  
+  <div class="admin-panel">
+    <h2>Список сотрудников</h2>
+    <div class="staff-list" id="staffList"></div>
+    
+    <h2 style="margin-top: 30px;">Добавить сотрудника</h2>
+    <p style="color: var(--text-dim); margin-bottom: 20px; font-size: 0.9rem;">Лимиты: 1 Руководитель, 1 Заместитель, 3 Разработчика (1 Главный, 1 Зам. главного, 1 Младший).</p>
+    
+    <div class="staff-form">
+      <input type="text" id="newFio" placeholder="ФИО (Иванов Иван Иванович)">
+      <input type="date" id="newDob" placeholder="Дата рождения">
+      <input type="email" id="newEmail" placeholder="Email (например: ivanov@mroo.ru)">
+      <input type="password" id="newPass" placeholder="Пароль (мин. 6 символов)">
+      
+      <select id="newRole" onchange="toggleDegreeField()">
+        <option value="dev">Разработчик</option>
+        <option value="boss">Руководитель</option>
+        <option value="zam">Заместитель руководителя</option>
+      </select>
+      
+      <div id="devDegreeGroup" class="form-group" style="margin: 0;">
+        <select id="newDegree">
+          <option value="main">Главный разработчик</option>
+          <option value="deputy">Зам. главного разработчика</option>
+          <option value="junior">Младший разработчик</option>
+        </select>
+      </div>
+      
+      <button onclick="addEmployee()">Добавить сотрудника</button>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-content">
+    <h3>Вход в систему</h3>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" class="form-control" placeholder="admin@mroo.ru">
+    </div>
+    <div class="form-group">
+      <label>Пароль</label>
+      <input type="password" id="loginPass" class="form-control" placeholder="Введите пароль">
+    </div>
+    <div class="form-actions">
+      <button class="btn-cancel" onclick="closeModal('loginModal')">Отмена</button>
+      <button class="btn-submit" onclick="doLogin()">Войти</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="applyModal">
+  <div class="modal-content">
+    <h3>Анкета соискателя</h3>
+    <div class="form-group"><label>ФИО</label><input type="text" id="appFio" class="form-control" placeholder="Иванов Иван Иванович"></div>
+    <div class="form-group"><label>Дата рождения</label><input type="date" id="appDob" class="form-control"></div>
+    <div class="form-group"><label>Опыт работы</label><input type="text" id="appExp" class="form-control" placeholder="Например: 3 года в образовании"></div>
+    <div class="form-group"><label>Примеры работ / Портфолио</label><textarea id="appPortfolio" class="form-control" placeholder="Ссылки на GitHub и т.д."></textarea></div>
+    <div class="form-actions">
+      <button class="btn-cancel" onclick="closeModal('applyModal')">Отмена</button>
+      <button class="btn-submit" onclick="submitApplication()">Отправить</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, addDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+  // ВАШ КОНФИГ ИЗ FIREBASE
+  const firebaseConfig = {
+    apiKey: "AIzaSyC5B2mAOHU9rKVfvXLbcFWFSDbJiiBxMT8",
+    authDomain: "mroo-rco.firebaseapp.com",
+    projectId: "mroo-rco",
+    storageBucket: "mroo-rco.firebasestorage.app",
+    messagingSenderId: "204172115670",
+    appId: "1:204172115670:web:fd6388088d3b2e1e689377",
+    measurementId: "G-DZN6W6GX3Q"
+  };
+
+  // ВАШ UID
+  const ADMIN_UID = "D41jm9A6SThvGyao7vuHgmjomIs2"; 
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  window.db = db;
+  window.auth = auth;
+  window.doc = doc;
+  window.getDoc = getDoc;
+  window.setDoc = setDoc;
+  window.collection = collection;
+  window.getDocs = getDocs;
+  window.addDoc = addDoc;
+  window.deleteDoc = deleteDoc;
+  window.onSnapshot = onSnapshot;
+  window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+  window.signOut = signOut;
+  window.ADMIN_UID = ADMIN_UID;
+
+  window.dispatchEvent(new Event('firebaseReady'));
+</script>
+
+<script>
+let currentUser = null;
+let dbData = { users: [], vacancies: [], applications: [], frozen: false };
+let currentApplyVacancyTitle = "";
+
+async function initApp() {
+  try {
+    window.onSnapshot(window.doc(window.db, "settings", "main"), (docSnap) => {
+      if (docSnap.exists()) {
+        dbData.frozen = docSnap.data().frozen || false;
+        updateUI();
+      } else {
+        window.setDoc(window.doc(window.db, "settings", "main"), { frozen: false });
+      }
+    });
+
+    window.onSnapshot(window.collection(window.db, "users"), (snapshot) => {
+      dbData.users = [];
+      snapshot.forEach(doc => dbData.users.push({ id: doc.id, ...doc.data() }));
+      updateUI();
+    });
+
+    window.onSnapshot(window.collection(window.db, "vacancies"), (snapshot) => {
+      dbData.vacancies = [];
+      snapshot.forEach(doc => dbData.vacancies.push({ id: doc.id, ...doc.data() }));
+      renderVacancies();
+    });
+
+    window.onSnapshot(window.collection(window.db, "applications"), (snapshot) => {
+      dbData.applications = [];
+      snapshot.forEach(doc => dbData.applications.push({ id: doc.id, ...doc.data() }));
+      renderApplications();
+    });
+
+    window.auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userDoc = dbData.users.find(u => u.email === user.email);
+        if (userDoc) {
+          currentUser = userDoc;
+          updateUI();
+        } else if (user.uid === window.ADMIN_UID) {
+          const newAdmin = { email: user.email, role: 'dev', degree: 'main', title: 'Главный разработчик', fio: 'Системный администратор', dob: '1990-01-01' };
+          await window.addDoc(window.collection(window.db, "users"), newAdmin);
+        }
+      } else {
+        currentUser = null;
+        updateUI();
+      }
+    });
+
+    renderSystems();
+  } catch (e) {
+    console.error("Ошибка инициализации:", e);
+  }
+}
+
+window.addEventListener('firebaseReady', () => { initApp(); });
+
+function openLoginModal() { document.getElementById('loginModal').classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+async function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  try {
+    await window.signInWithEmailAndPassword(window.auth, email, pass);
+    closeModal('loginModal');
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPass').value = '';
+    showPage('home');
+  } catch (error) {
+    alert('Ошибка входа: ' + error.message);
+  }
+}
+
+async function logout() {
+  await window.signOut(window.auth);
+  showPage('home');
+}
+
+function updateUI() {
+  const loginBtn = document.getElementById('loginBtn');
+  const userBadge = document.getElementById('userBadge');
+  const userName = document.getElementById('userName');
+  const devControls = document.getElementById('devControls');
+  const jobsAdminPanel = document.getElementById('jobsAdminPanel');
+  const appsAdminPanel = document.getElementById('applicationsAdminPanel');
+  
+  document.querySelectorAll('.nav a').forEach(a => {
+    if (a.dataset.page === 'admin') a.remove();
+    a.style.display = 'block';
+  });
+
+  if (currentUser) {
+    loginBtn.style.display = 'none';
+    userBadge.classList.add('active');
+    userName.textContent = `${currentUser.title} (${currentUser.email || ''})`;
+    
+    if (currentUser.role === 'dev') {
+      devControls.classList.add('active');
+      const adminLink = document.createElement('a');
+      adminLink.dataset.page = 'admin';
+      adminLink.textContent = 'Сотрудники';
+      adminLink.onclick = () => showPage('admin');
+      document.getElementById('mainNav').appendChild(adminLink);
+      updateFreezeBtn();
+      jobsAdminPanel.style.display = 'block';
+      appsAdminPanel.style.display = 'block';
+    } 
+    else if (currentUser.role === 'boss') {
+      devControls.classList.remove('active');
+      jobsAdminPanel.style.display = 'block';
+      appsAdminPanel.style.display = 'block';
+    }
+    else if (currentUser.role === 'zam') {
+      devControls.classList.remove('active');
+      jobsAdminPanel.style.display = 'block';
+      appsAdminPanel.style.display = 'none';
+      document.querySelectorAll('.nav a').forEach(a => {
+        if(a.dataset.page !== 'jobs' && a.dataset.page !== 'home') a.style.display = 'none';
+      });
+    }
+  } else {
+    loginBtn.style.display = 'block';
+    userBadge.classList.remove('active');
+    devControls.classList.remove('active');
+    jobsAdminPanel.style.display = 'none';
+    appsAdminPanel.style.display = 'none';
+  }
+
+  if (dbData.frozen) document.body.classList.add('frozen');
+  else document.body.classList.remove('frozen');
+  
+  renderStaffList();
+}
+
+async function toggleFreeze() {
+  if (currentUser.role !== 'dev') return;
+  await window.setDoc(window.doc(window.db, "settings", "main"), { frozen: !dbData.frozen });
+}
+
+function updateFreezeBtn() {
+  const btn = document.getElementById('freezeBtn');
+  if (dbData.frozen) {
+    btn.textContent = 'Разморозить сайт';
+    btn.className = 'btn-unfreeze';
+  } else {
+    btn.textContent = 'Заморозить сайт';
+    btn.className = 'btn-freeze';
+  }
+}
+
+function showPage(pageId) {
+  if (dbData.frozen && currentUser?.role !== 'dev') {
+    if (pageId !== 'home') return;
+  }
+  if (currentUser?.role === 'zam' && pageId !== 'jobs' && pageId !== 'home') return;
+
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const target = document.getElementById("page-" + pageId);
+  if (target) target.classList.add("active");
+
+  document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("active", a.dataset.page === pageId));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderVacancies() {
+  const grid = document.getElementById('vacanciesGrid');
+  if (!grid) return;
+  if (dbData.vacancies.length === 0) {
+    grid.innerHTML = '<p style="color: var(--text-dim); text-align: center; width: 100%; grid-column: 1/-1;">На данный момент вакансий нет.</p>';
+    return;
+  }
+  grid.innerHTML = dbData.vacancies.map(v => `
+    <div class="vacancy-card">
+      <div><h3>${v.title}</h3><p><strong>Суть:</strong> ${v.desc}</p><p><strong>Условия:</strong> ${v.cond}</p></div>
+      ${currentUser ? `<button class="btn-apply" onclick="openApplyModal('${v.title}')">Трудоустроиться</button>` : ''}
+      ${(currentUser?.role === 'dev' || currentUser?.role === 'boss' || currentUser?.role === 'zam') ? 
+        `<button class="btn-cancel" style="margin-top: 10px; width: 100%; border-color: var(--danger); color: var(--danger);" onclick="deleteVacancy('${v.id}')">Удалить</button>` : ''}
+    </div>`).join('');
+}
+
+async function addVacancy() {
+  const title = document.getElementById('vacTitle').value.trim();
+  const desc = document.getElementById('vacDesc').value.trim();
+  const cond = document.getElementById('vacCond').value.trim();
+  if (!title || !desc || !cond) { alert('Заполните все поля!'); return; }
+  await window.addDoc(window.collection(window.db, "vacancies"), { title, desc, cond });
+  document.getElementById('vacTitle').value = '';
+  document.getElementById('vacDesc').value = '';
+  document.getElementById('vacCond').value = '';
+}
+
+async function deleteVacancy(id) {
+  if (confirm('Удалить вакансию?')) await window.deleteDoc(window.doc(window.db, "vacancies", id));
+}
+
+function openApplyModal(title) {
+  currentApplyVacancyTitle = title;
+  document.getElementById('applyModal').classList.add('show');
+}
+
+async function submitApplication() {
+  const fio = document.getElementById('appFio').value.trim();
+  const dob = document.getElementById('appDob').value;
+  const exp = document.getElementById('appExp').value.trim();
+  const portfolio = document.getElementById('appPortfolio').value.trim();
+  if (!fio || !dob || !exp) { alert('Заполните обязательные поля!'); return; }
+  
+  await window.addDoc(window.collection(window.db, "applications"), {
+    vacancy: currentApplyVacancyTitle, fio, dob, exp, portfolio, date: new Date().toLocaleDateString('ru-RU')
+  });
+  
+  closeModal('applyModal');
+  alert('Заявка отправлена!');
+  document.getElementById('appFio').value = '';
+  document.getElementById('appDob').value = '';
+  document.getElementById('appExp').value = '';
+  document.getElementById('appPortfolio').value = '';
+}
+
+function renderApplications() {
+  const list = document.getElementById('applicationsList');
+  if (!list) return;
+  if (dbData.applications.length === 0) { list.innerHTML = '<p style="color: var(--text-dim);">Новых заявок нет.</p>'; return; }
+  list.innerHTML = dbData.applications.map(a => `
+    <div class="staff-item" style="border-left-color: var(--violet-light);">
+      <div>
+        <span>${a.fio}</span>
+        <small><b>Вакансия:</b> ${a.vacancy}</small><small><b>ДР:</b> ${a.dob}</small>
+        <small><b>Опыт:</b> ${a.exp}</small><small><b>Портфолио:</b> ${a.portfolio || 'Нет'}</small>
+      </div>
+      <button style="background:transparent; border:1px solid var(--danger); color:var(--danger); padding:8px 12px; border-radius:8px; cursor:pointer;" onclick="deleteApplication('${a.id}')">Удалить</button>
+    </div>`).join('');
+}
+
+async function deleteApplication(id) {
+  if (confirm('Удалить заявку?')) await window.deleteDoc(window.doc(window.db, "applications", id));
+}
+
+function toggleDegreeField() {
+  document.getElementById('devDegreeGroup').style.display = document.getElementById('newRole').value === 'dev' ? 'block' : 'none';
+}
+
+function renderStaffList() {
+  const list = document.getElementById('staffList');
+  if (!list) return;
+  list.innerHTML = dbData.users.map(u => `
+    <div class="staff-item">
+      <div><span>${u.title}</span><small><b>ФИО:</b> ${u.fio}</small><small><b>Email:</b> ${u.email || 'Нет'}</small></div>
+      ${u.role !== 'dev' || dbData.users.filter(x => x.role === 'dev').length > 1 ? 
+        `<button style="background:transparent; border:none; color:var(--danger); cursor:pointer;" onclick="removeEmployee('${u.id}')">Удалить</button>` : ''}
+    </div>`).join('');
+}
+
+async function addEmployee() {
+  const fio = document.getElementById('newFio').value.trim();
+  const dob = document.getElementById('newDob').value;
+  const email = document.getElementById('newEmail').value.trim();
+  const role = document.getElementById('newRole').value;
+  const degree = document.getElementById('newDegree').value;
+  
+  if (!fio || !dob || !email) { alert('Заполните все поля!'); return; }
+  
+  let title = role === 'boss' ? 'Руководитель' : (role === 'zam' ? 'Заместитель' : 'Разработчик');
+  if (role === 'dev') title = degree === 'main' ? 'Главный разработчик' : (degree === 'deputy' ? 'Зам. главного' : 'Младший разработчик');
+  
+  await window.addDoc(window.collection(window.db, "users"), { email, role, degree, title, fio, dob });
+  document.getElementById('newFio').value = '';
+  document.getElementById('newDob').value = '';
+  document.getElementById('newEmail').value = '';
+  alert('Сотрудник добавлен в базу! Не забудьте создать ему пароль в консоли Firebase (Authentication -> Users).');
+}
+
+async function removeEmployee(id) {
+  if (confirm('Удалить сотрудника?')) await window.deleteDoc(window.doc(window.db, "users", id));
+}
+
+function renderSystems() {
+  const systemsList = [
+    { id: 'online', name: 'АИС "Онлайн"', icon: '🌐', desc: 'Единая платформа для управления учебным процессом.' },
+    { id: 'teacher', name: 'АИС "Современный педагог"', icon: '👩‍🏫', desc: 'Инструменты для профессионального развития учителей.' },
+    { id: 'eljur', name: 'АИС "ЭлЖур"', icon: '📓', desc: 'Классическая система электронных журналов.', unavailable: true },
+    { id: 'zhuravl', name: 'АИС "ЭжЖуравль"', icon: '🦢', desc: 'Система управления образовательной организацией.' },
+    { id: 'smartclass', name: 'АИС "Умный класс"', icon: '💡', desc: 'Интерактивная платформа для обучения.' },
+    { id: 'tutor', name: 'ОРИС "TutorTut"', icon: '🎓', desc: 'Открытая система наставничества.' }
+  ];
+  const grid = document.getElementById('systemsGrid');
+  if (!grid) return;
+  grid.innerHTML = systemsList.map(s => `
+    <div class="system-card" onclick="alert('Переход к системе ${s.name}')">
+      <div class="system-icon">${s.icon}</div>
+      <h3>${s.name}</h3><p>${s.desc}</p>
+      ${s.unavailable ? '<span class="badge-danger">⚠ Временно не предоставляется</span>' : ''}
+    </div>`).join('');
+}
+</script>
+</body>
+</html>
