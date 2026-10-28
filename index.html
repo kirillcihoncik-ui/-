@@ -71,12 +71,14 @@ body.frozen .hero-title, body.frozen .hero-subtitle, body.frozen .about-card, bo
 .features { list-style: none; display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
 .feature { display: flex; align-items: center; gap: 8px; background: rgba(123, 63, 242, 0.15); border: 1px solid rgba(157, 107, 255, 0.3); padding: 10px 16px; border-radius: 999px; font-size: 0.92rem; transition: transform 0.3s, box-shadow 0.3s; }
 .feature:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(123,63,242,0.4); }
-.cta-button { display: inline-block; margin: 44px auto 0; padding: 16px 40px; border-radius: 999px; font-weight: 600; font-size: 1rem; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--violet), var(--blue)); box-shadow: 0 10px 30px rgba(123, 63, 242, 0.5); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; border: none; font-family: inherit; }
+.cta-button { display: inline-block; margin: 44px auto 0; padding: 16px 40px; border-radius: 999px; font-weight: 600; font-size: 1rem; text-decoration: none; color: #fff; background: linear-gradient(135deg, var(--violet), var(--blue)); box-shadow: 0 10px 30px rgba(123, 63, 242, 0.5); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; border: none; font-family: inherit; text-align: center; }
 .cta-button:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 16px 40px rgba(123, 63, 242, 0.75); }
 .cta-wrap { text-align: center; }
 
 .section-title { text-align: center; font-size: clamp(1.8rem, 4.5vw, 2.8rem); margin-bottom: 20px; background: linear-gradient(90deg, var(--violet-light), var(--blue-light)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .section-sub { text-align: center; color: var(--text-dim); margin-bottom: 50px; font-size: 1.05rem; }
+
+/* СИСТЕМЫ И ВАКАНСИИ */
 .systems { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
 .system-card { background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 20px; padding: 28px 24px; cursor: pointer; transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
 .system-card:hover { transform: translateY(-8px); border-color: rgba(157, 107, 255, 0.7); box-shadow: 0 20px 50px rgba(123, 63, 242, 0.4); }
@@ -95,6 +97,7 @@ body.frozen .hero-title, body.frozen .hero-subtitle, body.frozen .about-card, bo
 .btn-apply { margin-top: 24px; padding: 12px 24px; border-radius: 12px; font-weight: 600; color: #fff; background: transparent; border: 2px solid var(--violet-light); cursor: pointer; align-self: flex-start; transition: all 0.3s; }
 .btn-apply:hover { background: var(--violet-light); color: var(--bg-deep); }
 
+/* АДМИН ПАНЕЛЬ */
 .admin-panel { margin-top: 40px; background: rgba(30, 15, 70, 0.7); border: 1px solid var(--success); border-radius: 20px; padding: 30px; }
 .admin-panel h2 { color: #fff; margin-bottom: 20px; border-bottom: 1px solid rgba(0, 210, 255, 0.3); padding-bottom: 10px; }
 .staff-list { display: grid; gap: 10px; margin-bottom: 30px; }
@@ -102,26 +105,34 @@ body.frozen .hero-title, body.frozen .hero-subtitle, body.frozen .about-card, bo
 .staff-item span { font-weight: bold; color: #fff; display: block; margin-bottom: 4px;}
 .staff-item small { color: var(--text-dim); display: block; font-size: 0.85rem; line-height: 1.4; }
 .staff-form { display: grid; gap: 15px; max-width: 400px; }
-.staff-form input, .staff-form select { padding: 12px; border-radius: 10px; background: rgba(10, 6, 32, 0.6); border: 1px solid rgba(157, 107, 255, 0.3); color: #fff; font-family: inherit; }
+.staff-form input, .staff-form select, .staff-form textarea { padding: 12px; border-radius: 10px; background: rgba(10, 6, 32, 0.6); border: 1px solid rgba(157, 107, 255, 0.3); color: #fff; font-family: inherit; width: 100%;}
 .staff-form button { padding: 14px; border-radius: 10px; border: none; font-weight: bold; background: var(--success); color: var(--bg-deep); cursor: pointer; transition: 0.3s; }
 .staff-form button:hover { box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); }
 #devDegreeGroup { display: none; }
 
-.contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px; }
-.contact-card { background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 24px; padding: 40px 30px; text-align: center; transition: transform 0.35s, border-color 0.35s; }
-.contact-card:hover { transform: translateY(-5px); border-color: rgba(157, 107, 255, 0.7); }
-.contact-icon { width: 70px; height: 70px; margin: 0 auto 20px; border-radius: 20px; display: grid; place-items: center; font-size: 2rem; background: linear-gradient(135deg, var(--violet), var(--blue)); }
-.contact-card h3 { font-size: 1.2rem; color: #fff; margin-bottom: 16px; }
-.contact-card p { color: var(--text-dim); line-height: 1.6; font-size: 1rem; }
+/* КОНТАКТЫ И ПРЕИМУЩЕСТВА (КАРТОЧКИ) */
+.contact-cards, .advantages { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px; }
+.contact-card, .adv-card { background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 24px; padding: 40px 30px; text-align: center; transition: transform 0.35s, border-color 0.35s; }
+.contact-card:hover, .adv-card:hover { transform: translateY(-5px); border-color: rgba(157, 107, 255, 0.7); }
+.contact-icon, .adv-icon { width: 70px; height: 70px; margin: 0 auto 20px; border-radius: 20px; display: grid; place-items: center; font-size: 2rem; background: linear-gradient(135deg, var(--violet), var(--blue)); }
+.contact-card h3, .adv-card h3 { font-size: 1.2rem; color: #fff; margin-bottom: 16px; }
+.contact-card p, .adv-card p { color: var(--text-dim); line-height: 1.6; font-size: 1rem; }
 .contact-link { display: inline-block; margin-top: 8px; font-size: 1.1rem; font-weight: 700; color: var(--success); text-decoration: none; word-break: break-all; }
 .contact-link:hover { text-shadow: 0 0 15px rgba(0, 210, 255, 0.8); }
 
+/* ДЛЯ ОУ */
+.ou-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
+.ou-card { background: rgba(30, 15, 70, 0.55); border: 1px solid rgba(157, 107, 255, 0.25); border-radius: 24px; padding: 40px 30px; text-align: center; }
+.ou-card h3 { color: #fff; margin-bottom: 10px; }
+.ou-card p { color: var(--text-dim); margin-bottom: 20px; font-size: 0.9rem; }
+
+/* МОДАЛЬНЫЕ ОКНА */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 6, 32, 0.85); backdrop-filter: blur(8px); z-index: 100; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; padding: 20px; }
 .modal-overlay.show { opacity: 1; pointer-events: all; }
-.modal-content { background: linear-gradient(160deg, #150a3a, #0a0620); border-radius: 24px; padding: 40px; transform: scale(0.8) translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 450px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(157, 107, 255, 0.4); }
+.modal-content { background: linear-gradient(160deg, #150a3a, #0a0620); border-radius: 24px; padding: 40px; transform: scale(0.8) translateY(20px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; border: 1px solid rgba(157, 107, 255, 0.4); }
 .modal-overlay.show .modal-content { transform: scale(1) translateY(0); }
 .modal-content h3 { text-align: center; margin-bottom: 24px; color: #fff; font-size: 1.4rem; }
-.form-group { margin-bottom: 18px; }
+.form-group { margin-bottom: 15px; }
 .form-group label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px; font-weight: 600; }
 .form-control { width: 100%; padding: 12px 16px; background: rgba(10, 6, 32, 0.6); border: 1px solid rgba(157, 107, 255, 0.3); border-radius: 10px; color: #fff; font-family: inherit; }
 .form-control:focus { outline: none; border-color: var(--violet-light); box-shadow: 0 0 15px rgba(157, 107, 255, 0.3); }
@@ -156,6 +167,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
     <a data-page="systems" onclick="showPage('systems')">Информационные системы</a>
     <a data-page="advantages" onclick="showPage('advantages')">Наши преимущества</a>
     <a data-page="jobs" onclick="showPage('jobs')">Работа у нас</a>
+    <a data-page="ou" onclick="showPage('ou')">Для ОУ</a>
     <a data-page="contacts" onclick="showPage('contacts')">Контакты</a>
   </nav>
 
@@ -171,12 +183,12 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   </div>
 </header>
 
+<!-- ГЛАВНАЯ -->
 <section class="page active" id="page-home">
   <div class="tech-works">
     <h1>Идут технические работы</h1>
     <p>Сайт временно заморожен разработчиком.<br>Пожалуйста, вернитесь чуть позже!</p>
   </div>
-
   <div class="hero-content">
     <h1 class="hero-title"><span class="line">Кто мы такие?</span></h1>
     <p class="hero-subtitle">Мы — <strong>образовательный портал</strong> для школ, который объединяет педагогов, методистов и учеников в единую цифровую среду.</p>
@@ -192,23 +204,26 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   </div>
 </section>
 
+<!-- СИСТЕМЫ -->
 <section class="page" id="page-systems">
   <h2 class="section-title">Информационные системы</h2>
   <p class="section-sub">Нажмите на карточку, чтобы открыть подробную информацию</p>
   <div class="systems" id="systemsGrid"></div>
 </section>
 
+<!-- ПРЕИМУЩЕСТВА (КАРТОЧКИ) -->
 <section class="page" id="page-advantages">
   <h2 class="section-title">Наши преимущества</h2>
   <p class="section-sub">Почему стоит работать с нами</p>
   <div class="advantages">
-    <div class="adv-card"><div class="adv-icon">🛟</div><div class="adv-content"><h3>Поддержка</h3><p>С нашей стороны действует круглосуточная техническая и моральная поддержка.</p></div></div>
-    <div class="adv-card"><div class="adv-icon">🏆</div><div class="adv-content"><h3>Опыт</h3><p>Вы можете получить незабываемый опыт работы и сотрудничества с нами.</p></div></div>
-    <div class="adv-card"><div class="adv-icon">⚖️</div><div class="adv-content"><h3>Соблюдение законодательства</h3><p>В нашей МРОО имеются свои основные регламенты и утверждённые локальные акты.</p></div></div>
-    <div class="adv-card"><div class="adv-icon">📈</div><div class="adv-content"><h3>Карьерный рост</h3><p>В нашем МРОО присутствует множество различных отделений и специалистов.</p></div></div>
+    <div class="adv-card"><div class="adv-icon">🛟</div><h3>Поддержка</h3><p>Круглосуточная техническая и моральная поддержка участников проекта.</p></div>
+    <div class="adv-card"><div class="adv-icon">🏆</div><h3>Опыт</h3><p>Вы получите незабываемый опыт работы и сотрудничества с нами.</p></div>
+    <div class="adv-card"><div class="adv-icon">⚖️</div><h3>Законность</h3><p>В нашей МРОО имеются свои основные регламенты и локальные акты.</p></div>
+    <div class="adv-card"><div class="adv-icon">📈</div><h3>Карьерный рост</h3><p>Множество различных отделений и специалистов, куда можно поступить.</p></div>
   </div>
 </section>
 
+<!-- РАБОТА У НАС -->
 <section class="page" id="page-jobs">
   <h2 class="section-title">Работа у нас</h2>
   <p class="section-sub">Актуальные вакансии в МРОО «Центр развития образования»</p>
@@ -222,7 +237,6 @@ textarea.form-control { resize: vertical; min-height: 80px; }
       <button onclick="addVacancy()">Добавить вакансию</button>
     </div>
   </div>
-
   <div class="vacancies-grid" id="vacanciesGrid"></div>
 
   <div class="admin-panel" id="applicationsAdminPanel" style="display: none; margin-top: 50px; border-color: var(--violet-light);">
@@ -231,64 +245,113 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   </div>
 </section>
 
+<!-- ДЛЯ ОУ -->
+<section class="page" id="page-ou">
+  <h2 class="section-title">Для образовательных учреждений</h2>
+  <p class="section-sub">Подключение школ к единой цифровой среде</p>
+  
+  <div class="ou-grid">
+    <div class="ou-card">
+      <div class="contact-icon">🔗</div>
+      <h3>Привязка ОО</h3>
+      <p>Только после регистрации ОО и одобрения заявки</p>
+      <button class="cta-button" style="margin-top: 20px; background: rgba(123, 63, 242, 0.2); border: 1px solid var(--violet-light); box-shadow: none;" onclick="alert('Временно недоступно. Дождитесь одобрения вашей заявки.')">Привязка (временно нет)</button>
+    </div>
+
+    <div class="ou-card">
+      <div class="contact-icon">📝</div>
+      <h3>Регистрация ОО</h3>
+      <p>Заполните заявку на подключение вашей школы</p>
+      <button class="cta-button" style="margin-top: 20px;" onclick="openOuModal()">Регистрация ОО</button>
+    </div>
+  </div>
+
+  <!-- Панель заявок от ОУ (Видна только админам) -->
+  <div class="admin-panel" id="ouAdminPanel" style="display: none; margin-top: 50px;">
+    <h2>Заявки от образовательных учреждений</h2>
+    <div class="staff-list" id="ouApplicationsList"></div>
+  </div>
+</section>
+
+<!-- КОНТАКТЫ -->
 <section class="page" id="page-contacts">
   <h2 class="section-title">Контакты</h2>
   <p class="section-sub">Свяжитесь с нами удобным способом</p>
   <div class="contact-cards">
-    <div class="contact-card"><div class="contact-icon">📍</div><h3>Наш центральный офис</h3><p>Свердловская область,<br>г. Екатеринбург,<br>ул. Титова, д. 33А</p></div>
-    <div class="contact-card"><div class="contact-icon">📞</div><h3>Единый информационный центр</h3><p>Звоните нам с 9:00 до 18:00</p><a href="tel:+79506573472" class="contact-link">+7 950 657 34 72</a></div>
-    <div class="contact-card"><div class="contact-icon">✉️</div><h3>Единая электронная почта</h3><p>Для подачи официальных обращений</p><a href="mailto:admin-mroo@ro.ru" class="contact-link">admin-mroo@ro.ru</a></div>
-    <div class="contact-card"><div class="contact-icon">🛠️</div><h3>Техническая поддержка</h3><p>По вопросам работы сайта и систем</p><a href="mailto:tehpod-mroo@ro.ru" class="contact-link">tehpod-mroo@ro.ru</a></div>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <h3>Наш центральный офис</h3>
+      <p>Свердловская область,<br>г. Екатеринбург,<br>ул. Титова, д. 33А</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h3>Единый информационный центр</h3>
+      <p>Звоните нам с 9:00 до 18:00</p>
+      <a href="tel:+79506573472" class="contact-link">+7 950 657 34 72</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <h3>Единая электронная почта</h3>
+      <p>Для официальных обращений</p>
+      <a href="mailto:admin-mroo@ro.ru" class="contact-link">admin-mroo@ro.ru</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🛠️</div>
+      <h3>Техническая поддержка</h3>
+      <p>По вопросам работы сайта</p>
+      <a href="mailto:tehpod-mroo@ro.ru" class="contact-link">tehpod-mroo@ro.ru</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🔵</div>
+      <h3>Единое VK-сообщество</h3>
+      <p>Контроль информации и доступ к системам</p>
+      <a href="https://vk.ru/centerrazvitiyaobrazovania" target="_blank" class="cta-button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem;">Перейти в VK</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <h3>Написать нам в VK</h3>
+      <p>Оперативная связь с администрацией</p>
+      <a href="https://vk.ru/im?sel=-238986209" target="_blank" class="cta-button" style="margin-top: 15px; padding: 10px 20px; font-size: 0.9rem;">Написать</a>
+    </div>
   </div>
 </section>
 
+<!-- ПАНЕЛЬ РАЗРАБОТЧИКА -->
 <section class="page" id="page-admin">
   <h2 class="section-title">Панель управления</h2>
   <p class="section-sub">Управление сотрудниками (Доступно только Разработчикам)</p>
-  
   <div class="admin-panel">
     <h2>Список сотрудников</h2>
     <div class="staff-list" id="staffList"></div>
     
     <h2 style="margin-top: 30px;">Добавить сотрудника</h2>
-    <p style="color: var(--text-dim); margin-bottom: 20px; font-size: 0.9rem;">Лимиты: 1 Руководитель, 1 Заместитель, 3 Разработчика (1 Главный, 1 Зам. главного, 1 Младший).</p>
-    
     <div class="staff-form">
-      <input type="text" id="newFio" placeholder="ФИО (Иванов Иван Иванович)">
+      <input type="text" id="newFio" placeholder="ФИО">
       <input type="date" id="newDob" placeholder="Дата рождения">
-      <input type="email" id="newEmail" placeholder="Email (например: ivanov@mroo.ru)">
-      <input type="password" id="newPass" placeholder="Пароль (мин. 6 символов)">
-      
+      <input type="email" id="newEmail" placeholder="Email">
       <select id="newRole" onchange="toggleDegreeField()">
         <option value="dev">Разработчик</option>
         <option value="boss">Руководитель</option>
-        <option value="zam">Заместитель руководителя</option>
+        <option value="zam">Заместитель</option>
       </select>
-      
       <div id="devDegreeGroup" class="form-group" style="margin: 0;">
         <select id="newDegree">
           <option value="main">Главный разработчик</option>
-          <option value="deputy">Зам. главного разработчика</option>
+          <option value="deputy">Зам. главного</option>
           <option value="junior">Младший разработчик</option>
         </select>
       </div>
-      
       <button onclick="addEmployee()">Добавить сотрудника</button>
     </div>
   </div>
 </section>
 
+<!-- МОДАЛКИ -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal-content">
     <h3>Вход в систему</h3>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="loginEmail" class="form-control" placeholder="admin@mroo.ru">
-    </div>
-    <div class="form-group">
-      <label>Пароль</label>
-      <input type="password" id="loginPass" class="form-control" placeholder="Введите пароль">
-    </div>
+    <div class="form-group"><label>Email</label><input type="email" id="loginEmail" class="form-control" placeholder="admin@mroo.ru"></div>
+    <div class="form-group"><label>Пароль</label><input type="password" id="loginPass" class="form-control"></div>
     <div class="form-actions">
       <button class="btn-cancel" onclick="closeModal('loginModal')">Отмена</button>
       <button class="btn-submit" onclick="doLogin()">Войти</button>
@@ -299,10 +362,10 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 <div class="modal-overlay" id="applyModal">
   <div class="modal-content">
     <h3>Анкета соискателя</h3>
-    <div class="form-group"><label>ФИО</label><input type="text" id="appFio" class="form-control" placeholder="Иванов Иван Иванович"></div>
+    <div class="form-group"><label>ФИО</label><input type="text" id="appFio" class="form-control"></div>
     <div class="form-group"><label>Дата рождения</label><input type="date" id="appDob" class="form-control"></div>
-    <div class="form-group"><label>Опыт работы</label><input type="text" id="appExp" class="form-control" placeholder="Например: 3 года в образовании"></div>
-    <div class="form-group"><label>Примеры работ / Портфолио</label><textarea id="appPortfolio" class="form-control" placeholder="Ссылки на GitHub и т.д."></textarea></div>
+    <div class="form-group"><label>Опыт работы</label><input type="text" id="appExp" class="form-control"></div>
+    <div class="form-group"><label>Портфолио</label><textarea id="appPortfolio" class="form-control"></textarea></div>
     <div class="form-actions">
       <button class="btn-cancel" onclick="closeModal('applyModal')">Отмена</button>
       <button class="btn-submit" onclick="submitApplication()">Отправить</button>
@@ -310,41 +373,58 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   </div>
 </div>
 
+<div class="modal-overlay" id="ouModal">
+  <div class="modal-content">
+    <h3>Регистрация ОО</h3>
+    <div class="form-group"><label>ФИО Директора</label><input type="text" id="ouDir" class="form-control"></div>
+    <div class="form-group"><label>ФИО Заместителя директора</label><input type="text" id="ouZam" class="form-control"></div>
+    <div class="form-group"><label>Краткое название ОО</label><input type="text" id="ouShort" class="form-control"></div>
+    <div class="form-group"><label>Полное название ОО</label><input type="text" id="ouFull" class="form-control"></div>
+    <div class="form-group">
+      <label>Желаемая система</label>
+      <select id="ouSystem" class="form-control">
+        <option value="АИС Онлайн">АИС "Онлайн"</option>
+        <option value="АИС Современный педагог">АИС "Современный педагог"</option>
+        <option value="АИС ЭлЖур">АИС "ЭлЖур"</option>
+        <option value="АИС ЭжЖуравль">АИС "ЭжЖуравль"</option>
+        <option value="АИС Умный класс">АИС "Умный класс"</option>
+        <option value="ОРИС TutorTut">ОРИС "TutorTut"</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Телефон ОО</label><input type="tel" id="ouPhone" class="form-control"></div>
+    <div class="form-group"><label>Почта ОО</label><input type="email" id="ouEmail" class="form-control"></div>
+    <div class="form-actions">
+      <button class="btn-cancel" onclick="closeModal('ouModal')">Отмена</button>
+      <button class="btn-submit" onclick="submitOuApplication()">Отправить заявку</button>
+    </div>
+  </div>
+</div>
+
+<!-- ПОДКЛЮЧЕНИЕ FIREBASE -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, getDocs, addDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-  // ВАШ КОНФИГ ИЗ FIREBASE
   const firebaseConfig = {
     apiKey: "AIzaSyC5B2mAOHU9rKVfvXLbcFWFSDbJiiBxMT8",
     authDomain: "mroo-rco.firebaseapp.com",
     projectId: "mroo-rco",
     storageBucket: "mroo-rco.firebasestorage.app",
     messagingSenderId: "204172115670",
-    appId: "1:204172115670:web:fd6388088d3b2e1e689377",
-    measurementId: "G-DZN6W6GX3Q"
+    appId: "1:204172115670:web:fd6388088d3b2e1e689377"
   };
 
-  // ВАШ UID
   const ADMIN_UID = "D41jm9A6SThvGyao7vuHgmjomIs2"; 
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth(app);
 
-  window.db = db;
-  window.auth = auth;
-  window.doc = doc;
-  window.getDoc = getDoc;
-  window.setDoc = setDoc;
-  window.collection = collection;
-  window.getDocs = getDocs;
-  window.addDoc = addDoc;
-  window.deleteDoc = deleteDoc;
-  window.onSnapshot = onSnapshot;
-  window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-  window.signOut = signOut;
+  window.db = db; window.auth = auth;
+  window.doc = doc; window.getDoc = getDoc; window.setDoc = setDoc;
+  window.collection = collection; window.getDocs = getDocs; window.addDoc = addDoc; window.deleteDoc = deleteDoc; window.onSnapshot = onSnapshot;
+  window.signInWithEmailAndPassword = signInWithEmailAndPassword; window.signOut = signOut;
   window.ADMIN_UID = ADMIN_UID;
 
   window.dispatchEvent(new Event('firebaseReady'));
@@ -352,18 +432,14 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 
 <script>
 let currentUser = null;
-let dbData = { users: [], vacancies: [], applications: [], frozen: false };
+let dbData = { users: [], vacancies: [], applications: [], orgApplications: [], frozen: false };
 let currentApplyVacancyTitle = "";
 
 async function initApp() {
   try {
     window.onSnapshot(window.doc(window.db, "settings", "main"), (docSnap) => {
-      if (docSnap.exists()) {
-        dbData.frozen = docSnap.data().frozen || false;
-        updateUI();
-      } else {
-        window.setDoc(window.doc(window.db, "settings", "main"), { frozen: false });
-      }
+      dbData.frozen = docSnap.exists() ? docSnap.data().frozen : false;
+      updateUI();
     });
 
     window.onSnapshot(window.collection(window.db, "users"), (snapshot) => {
@@ -384,32 +460,31 @@ async function initApp() {
       renderApplications();
     });
 
+    window.onSnapshot(window.collection(window.db, "orgApplications"), (snapshot) => {
+      dbData.orgApplications = [];
+      snapshot.forEach(doc => dbData.orgApplications.push({ id: doc.id, ...doc.data() }));
+      renderOuApplications();
+    });
+
     window.auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userDoc = dbData.users.find(u => u.email === user.email);
-        if (userDoc) {
-          currentUser = userDoc;
-          updateUI();
-        } else if (user.uid === window.ADMIN_UID) {
+        if (userDoc) { currentUser = userDoc; updateUI(); }
+        else if (user.uid === window.ADMIN_UID) {
           const newAdmin = { email: user.email, role: 'dev', degree: 'main', title: 'Главный разработчик', fio: 'Системный администратор', dob: '1990-01-01' };
           await window.addDoc(window.collection(window.db, "users"), newAdmin);
         }
-      } else {
-        currentUser = null;
-        updateUI();
-      }
+      } else { currentUser = null; updateUI(); }
     });
-
     renderSystems();
-  } catch (e) {
-    console.error("Ошибка инициализации:", e);
-  }
+  } catch (e) { console.error("Ошибка:", e); }
 }
 
 window.addEventListener('firebaseReady', () => { initApp(); });
 
 function openLoginModal() { document.getElementById('loginModal').classList.add('show'); }
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function openOuModal() { document.getElementById('ouModal').classList.add('show'); }
 
 async function doLogin() {
   const email = document.getElementById('loginEmail').value.trim();
@@ -420,9 +495,7 @@ async function doLogin() {
     document.getElementById('loginEmail').value = '';
     document.getElementById('loginPass').value = '';
     showPage('home');
-  } catch (error) {
-    alert('Ошибка входа: ' + error.message);
-  }
+  } catch (error) { alert('Ошибка входа: ' + error.message); }
 }
 
 async function logout() {
@@ -437,6 +510,7 @@ function updateUI() {
   const devControls = document.getElementById('devControls');
   const jobsAdminPanel = document.getElementById('jobsAdminPanel');
   const appsAdminPanel = document.getElementById('applicationsAdminPanel');
+  const ouAdminPanel = document.getElementById('ouAdminPanel');
   
   document.querySelectorAll('.nav a').forEach(a => {
     if (a.dataset.page === 'admin') a.remove();
@@ -458,16 +532,19 @@ function updateUI() {
       updateFreezeBtn();
       jobsAdminPanel.style.display = 'block';
       appsAdminPanel.style.display = 'block';
+      ouAdminPanel.style.display = 'block';
     } 
     else if (currentUser.role === 'boss') {
       devControls.classList.remove('active');
       jobsAdminPanel.style.display = 'block';
       appsAdminPanel.style.display = 'block';
+      ouAdminPanel.style.display = 'block';
     }
     else if (currentUser.role === 'zam') {
       devControls.classList.remove('active');
       jobsAdminPanel.style.display = 'block';
       appsAdminPanel.style.display = 'none';
+      ouAdminPanel.style.display = 'none';
       document.querySelectorAll('.nav a').forEach(a => {
         if(a.dataset.page !== 'jobs' && a.dataset.page !== 'home') a.style.display = 'none';
       });
@@ -478,11 +555,11 @@ function updateUI() {
     devControls.classList.remove('active');
     jobsAdminPanel.style.display = 'none';
     appsAdminPanel.style.display = 'none';
+    ouAdminPanel.style.display = 'none';
   }
 
   if (dbData.frozen) document.body.classList.add('frozen');
   else document.body.classList.remove('frozen');
-  
   renderStaffList();
 }
 
@@ -493,25 +570,17 @@ async function toggleFreeze() {
 
 function updateFreezeBtn() {
   const btn = document.getElementById('freezeBtn');
-  if (dbData.frozen) {
-    btn.textContent = 'Разморозить сайт';
-    btn.className = 'btn-unfreeze';
-  } else {
-    btn.textContent = 'Заморозить сайт';
-    btn.className = 'btn-freeze';
-  }
+  if (dbData.frozen) { btn.textContent = 'Разморозить сайт'; btn.className = 'btn-unfreeze'; }
+  else { btn.textContent = 'Заморозить сайт'; btn.className = 'btn-freeze'; }
 }
 
 function showPage(pageId) {
-  if (dbData.frozen && currentUser?.role !== 'dev') {
-    if (pageId !== 'home') return;
-  }
+  if (dbData.frozen && currentUser?.role !== 'dev' && pageId !== 'home') return;
   if (currentUser?.role === 'zam' && pageId !== 'jobs' && pageId !== 'home') return;
 
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const target = document.getElementById("page-" + pageId);
   if (target) target.classList.add("active");
-
   document.querySelectorAll(".nav a").forEach(a => a.classList.toggle("active", a.dataset.page === pageId));
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -538,19 +607,14 @@ async function addVacancy() {
   const cond = document.getElementById('vacCond').value.trim();
   if (!title || !desc || !cond) { alert('Заполните все поля!'); return; }
   await window.addDoc(window.collection(window.db, "vacancies"), { title, desc, cond });
-  document.getElementById('vacTitle').value = '';
-  document.getElementById('vacDesc').value = '';
-  document.getElementById('vacCond').value = '';
+  document.getElementById('vacTitle').value = ''; document.getElementById('vacDesc').value = ''; document.getElementById('vacCond').value = '';
 }
 
 async function deleteVacancy(id) {
   if (confirm('Удалить вакансию?')) await window.deleteDoc(window.doc(window.db, "vacancies", id));
 }
 
-function openApplyModal(title) {
-  currentApplyVacancyTitle = title;
-  document.getElementById('applyModal').classList.add('show');
-}
+function openApplyModal(title) { currentApplyVacancyTitle = title; document.getElementById('applyModal').classList.add('show'); }
 
 async function submitApplication() {
   const fio = document.getElementById('appFio').value.trim();
@@ -558,17 +622,12 @@ async function submitApplication() {
   const exp = document.getElementById('appExp').value.trim();
   const portfolio = document.getElementById('appPortfolio').value.trim();
   if (!fio || !dob || !exp) { alert('Заполните обязательные поля!'); return; }
-  
   await window.addDoc(window.collection(window.db, "applications"), {
     vacancy: currentApplyVacancyTitle, fio, dob, exp, portfolio, date: new Date().toLocaleDateString('ru-RU')
   });
-  
   closeModal('applyModal');
   alert('Заявка отправлена!');
-  document.getElementById('appFio').value = '';
-  document.getElementById('appDob').value = '';
-  document.getElementById('appExp').value = '';
-  document.getElementById('appPortfolio').value = '';
+  document.getElementById('appFio').value = ''; document.getElementById('appDob').value = ''; document.getElementById('appExp').value = ''; document.getElementById('appPortfolio').value = '';
 }
 
 function renderApplications() {
@@ -580,7 +639,7 @@ function renderApplications() {
       <div>
         <span>${a.fio}</span>
         <small><b>Вакансия:</b> ${a.vacancy}</small><small><b>ДР:</b> ${a.dob}</small>
-        <small><b>Опыт:</b> ${a.exp}</small><small><b>Портфолио:</b> ${a.portfolio || 'Нет'}</small>
+        <small><b>Опыт:</b> ${a.exp}</small>
       </div>
       <button style="background:transparent; border:1px solid var(--danger); color:var(--danger); padding:8px 12px; border-radius:8px; cursor:pointer;" onclick="deleteApplication('${a.id}')">Удалить</button>
     </div>`).join('');
@@ -590,10 +649,67 @@ async function deleteApplication(id) {
   if (confirm('Удалить заявку?')) await window.deleteDoc(window.doc(window.db, "applications", id));
 }
 
-function toggleDegreeField() {
-  document.getElementById('devDegreeGroup').style.display = document.getElementById('newRole').value === 'dev' ? 'block' : 'none';
+/* ЗАЯВКИ ОТ ОУ */
+async function submitOuApplication() {
+  const dir = document.getElementById('ouDir').value.trim();
+  const zam = document.getElementById('ouZam').value.trim();
+  const shortName = document.getElementById('ouShort').value.trim();
+  const fullName = document.getElementById('ouFull').value.trim();
+  const system = document.getElementById('ouSystem').value;
+  const phone = document.getElementById('ouPhone').value.trim();
+  const email = document.getElementById('ouEmail').value.trim();
+  
+  if (!dir || !zam || !shortName || !fullName || !phone || !email) {
+    alert('Заполните все поля!'); return;
+  }
+  
+  await window.addDoc(window.collection(window.db, "orgApplications"), {
+    dir, zam, shortName, fullName, system, phone, email, status: 'pending', date: new Date().toLocaleDateString('ru-RU')
+  });
+  
+  closeModal('ouModal');
+  alert('Заявка на регистрацию ОО отправлена! Ожидайте одобрения.');
+  document.getElementById('ouDir').value = ''; document.getElementById('ouZam').value = ''; document.getElementById('ouShort').value = '';
+  document.getElementById('ouFull').value = ''; document.getElementById('ouPhone').value = ''; document.getElementById('ouEmail').value = '';
 }
 
+function renderOuApplications() {
+  const list = document.getElementById('ouApplicationsList');
+  if (!list) return;
+  if (dbData.orgApplications.length === 0) { list.innerHTML = '<p style="color: var(--text-dim);">Новых заявок нет.</p>'; return; }
+  
+  list.innerHTML = dbData.orgApplications.map(a => `
+    <div class="staff-item" style="border-left-color: ${a.status === 'approved' ? 'var(--success)' : (a.status === 'rejected' ? 'var(--danger)' : 'orange')};">
+      <div>
+        <span>${a.shortName} (${a.fullName})</span>
+        <small><b>Директор:</b> ${a.dir}</small>
+        <small><b>Зам:</b> ${a.zam}</small>
+        <small><b>Система:</b> ${a.system}</small>
+        <small><b>Тел:</b> ${a.phone} | <b>Почта:</b> ${a.email}</small>
+        <small><b>Статус:</b> ${a.status === 'approved' ? 'Одобрено' : (a.status === 'rejected' ? 'Отклонено' : 'В ожидании')}</small>
+      </div>
+      ${a.status === 'pending' ? `
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <button style="background:var(--success); border:none; color:var(--bg-deep); padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:bold;" onclick="processOu('${a.id}', 'approved', '${a.email}', '${a.shortName}')">Одобрить</button>
+        <button style="background:transparent; border:1px solid var(--danger); color:var(--danger); padding:8px 12px; border-radius:8px; cursor:pointer;" onclick="processOu('${a.id}', 'rejected', '${a.email}', '${a.shortName}')">Отклонить</button>
+      </div>` : ''}
+    </div>`).join('');
+}
+
+async function processOu(id, status, email, name) {
+  if (!confirm(`Вы уверены, что хотите ${status === 'approved' ? 'одобрить' : 'отклонить'} заявку от ${name}?`)) return;
+  
+  await window.setDoc(window.doc(window.db, "orgApplications", id), { status }, { merge: true });
+  
+  const letter = status === 'approved' 
+    ? `Здравствуйте!\n\nВаша заявка на подключение ОО "${name}" к системе МРОО ЦРО ОДОБРЕНА.\n\nТеперь вы можете пройти привязку в разделе "Для ОУ".\n\nС уважением, администрация ЦРО.`
+    : `Здравствуйте!\n\nК сожалению, ваша заявка на подключение ОО "${name}" была ОТКЛОНЕНА.\n\nСвяжитесь с техподдержкой для уточнения причин.\n\nС уважением, администрация ЦРО.`;
+    
+  alert(`Статус изменен. Письмо для отправки на ${email}:\n\n${letter}`);
+}
+
+/* СОТРУДНИКИ */
+function toggleDegreeField() { document.getElementById('devDegreeGroup').style.display = document.getElementById('newRole').value === 'dev' ? 'block' : 'none'; }
 function renderStaffList() {
   const list = document.getElementById('staffList');
   if (!list) return;
@@ -611,22 +727,17 @@ async function addEmployee() {
   const email = document.getElementById('newEmail').value.trim();
   const role = document.getElementById('newRole').value;
   const degree = document.getElementById('newDegree').value;
-  
   if (!fio || !dob || !email) { alert('Заполните все поля!'); return; }
   
   let title = role === 'boss' ? 'Руководитель' : (role === 'zam' ? 'Заместитель' : 'Разработчик');
   if (role === 'dev') title = degree === 'main' ? 'Главный разработчик' : (degree === 'deputy' ? 'Зам. главного' : 'Младший разработчик');
   
   await window.addDoc(window.collection(window.db, "users"), { email, role, degree, title, fio, dob });
-  document.getElementById('newFio').value = '';
-  document.getElementById('newDob').value = '';
-  document.getElementById('newEmail').value = '';
-  alert('Сотрудник добавлен в базу! Не забудьте создать ему пароль в консоли Firebase (Authentication -> Users).');
+  document.getElementById('newFio').value = ''; document.getElementById('newDob').value = ''; document.getElementById('newEmail').value = '';
+  alert('Сотрудник добавлен! Не забудьте создать ему пароль в Firebase (Authentication -> Users).');
 }
 
-async function removeEmployee(id) {
-  if (confirm('Удалить сотрудника?')) await window.deleteDoc(window.doc(window.db, "users", id));
-}
+async function removeEmployee(id) { if (confirm('Удалить сотрудника?')) await window.deleteDoc(window.doc(window.db, "users", id)); }
 
 function renderSystems() {
   const systemsList = [
